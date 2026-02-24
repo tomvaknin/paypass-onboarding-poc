@@ -395,27 +395,7 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
 
 
 
-/* test mode body banner */
-.test-mode-banner{
-  display:none;
-  background:#78350f;
-  color:#fef3c7;
-  font-size:11.5px;font-family:'DM Mono',monospace;
-  padding:5px 12px;
-  text-align:center;
-  letter-spacing:.03em;
-  position:fixed;
-  top:0;left:0;right:0;
-  z-index:9001;
-}
-.test-mode-banner.on{display:block}
 
-/* when test mode banner is visible, push mob-bar down */
-body.test-mode .mob-bar{top:26px}
-body.test-mode .main{padding-top:72px}
-@media(max-width:768px){
-  body.test-mode .main{padding-top:100px}
-}
 
 /* test mode: dim required star */
 body.test-mode .req{opacity:.3}
@@ -794,6 +774,28 @@ body.test-mode .card{
 .sw-inline input:checked ~ .sw-track{background:#f59e0b}
 .sw-inline input:checked ~ .sw-track .sw-thumb{transform:translateX(14px)}
 
+
+/* ── MOBILE DRAWER BOTTOM WIDGETS ── */
+.mob-drawer-divider{height:1px;background:var(--g100);margin:0 16px}
+.mob-test-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;cursor:pointer;transition:background .15s;
+  user-select:none;
+}
+.mob-test-row:hover{background:var(--g50)}
+.mob-test-row-left{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--g500);font-weight:500}
+.mob-test-row.on .mob-test-row-left{color:#d97706}
+.mob-test-row.on svg{color:#d97706!important}
+.mob-profile-row{
+  display:flex;align-items:center;gap:11px;
+  padding:12px 16px;cursor:pointer;transition:background .15s;
+}
+.mob-profile-row:hover{background:var(--g50)}
+.mob-profile-row-info{flex:1;min-width:0}
+.mob-profile-row-name{font-size:13px;font-weight:600;color:var(--g800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mob-profile-row-email{font-size:11.5px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mob-drawer-prog{padding:12px 16px 16px;border-top:1px solid var(--g100)}
+
 </style>
 </head>
 <body>
@@ -828,10 +830,38 @@ body.test-mode .card{
   <div class="mob-drawer-nav" id="mob-drawer-nav">
     <!-- populated by JS, same as sidebar -->
   </div>
-  <div class="mob-drawer-foot">
-    <div class="prog-row">
-      <div class="prog-track"><div class="prog-fill" id="mob-pf2" style="width:10%"></div></div>
-      <div class="prog-txt" id="mob-pt2">1 / 5</div>
+  <div style="margin-top:auto">
+    <div class="mob-drawer-divider"></div>
+    <!-- Test mode toggle -->
+    <div class="mob-test-row" id="mob-test-row" onclick="document.getElementById('mob-test-chk').click()">
+      <div class="mob-test-row-left">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--g400)"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        Test mode
+      </div>
+      <label class="sw-inline" onclick="event.stopPropagation()">
+        <input type="checkbox" id="mob-test-chk" onchange="mobToggleTestMode()">
+        <div class="sw-track"><div class="sw-thumb"></div></div>
+      </label>
+    </div>
+    <div class="mob-drawer-divider"></div>
+    <!-- Profile row -->
+    <div class="mob-profile-row" onclick="closeMobDrawer();openProfile()">
+      <div class="avatar-wrap">
+        <div class="avatar sm" id="mob-avatar">JD</div>
+        <div class="online-dot"></div>
+      </div>
+      <div class="mob-profile-row-info">
+        <div class="mob-profile-row-name" id="mob-profile-name">John Doe</div>
+        <div class="mob-profile-row-email" id="mob-profile-email">john@acmecorp.com</div>
+      </div>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--g400);flex-shrink:0"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+    <!-- Progress -->
+    <div class="mob-drawer-prog">
+      <div class="prog-row">
+        <div class="prog-track"><div class="prog-fill" id="mob-pf2" style="width:10%"></div></div>
+        <div class="prog-txt" id="mob-pt2">1 / 5</div>
+      </div>
     </div>
   </div>
 </div>
@@ -2237,12 +2267,37 @@ function closeMobDrawer(){
 function syncMobDrawer(){
   const src = document.getElementById('sb-nav').innerHTML;
   document.getElementById('mob-drawer-nav').innerHTML = src;
-  // re-bind clicks in drawer
+  // re-bind step clicks in drawer
   document.querySelectorAll('#mob-drawer-nav .ni').forEach((el,i)=>{
     el.onclick = function(){
       if(!this.classList.contains('locked')){ closeMobDrawer(); tryGoStep(i); }
     };
   });
+  // sync test mode toggle
+  const mobChk = document.getElementById('mob-test-chk');
+  const mobRow = document.getElementById('mob-test-row');
+  const testOn = typeof TEST_MODE !== 'undefined' && TEST_MODE;
+  if(mobChk) mobChk.checked = testOn;
+  if(mobRow){ testOn ? mobRow.classList.add('on') : mobRow.classList.remove('on'); }
+  // sync profile name/email/avatar
+  const name = profileData ? profileData.name : 'John Doe';
+  const email = profileData ? profileData.email : '';
+  const ini = profileData ? profileData.initials : 'JD';
+  const mobName = document.getElementById('mob-profile-name');
+  const mobEmail = document.getElementById('mob-profile-email');
+  const mobAv = document.getElementById('mob-avatar');
+  if(mobName) mobName.textContent = name;
+  if(mobEmail) mobEmail.textContent = email;
+  if(mobAv) mobAv.textContent = ini;
+}
+function mobToggleTestMode(){
+  const mobChk = document.getElementById('mob-test-chk');
+  const sbChk = document.getElementById('test-mode-chk');
+  if(sbChk && mobChk) sbChk.checked = mobChk.checked;
+  toggleTestMode();
+  // keep mob row state in sync
+  const mobRow = document.getElementById('mob-test-row');
+  if(mobRow){ TEST_MODE ? mobRow.classList.add('on') : mobRow.classList.remove('on'); }
 }
 function updateMobProgress(){
   const pct = ((currentStep+1)/STEPS)*100;
@@ -2681,6 +2736,7 @@ function saveProfileField(){
   renderTeamList();
   cancelEditField();
   showToast('Profile updated');
+  if(typeof syncMobDrawer==='function') syncMobDrawer();
 }
 function cancelEditField(){
   editingField=null;
@@ -2710,17 +2766,14 @@ function toggleTestMode(){
   if(!chk) return;
   TEST_MODE = chk.checked;
   const row = document.getElementById('test-mode-row');
-  const banner = document.getElementById('test-mode-banner');
   if(TEST_MODE){
     if(row) row.classList.add('on');
-    if(banner) banner.classList.add('on');
     document.body.classList.add('test-mode');
     unlockedSteps = new Set([0,1,2,3,4]);
     buildNavState();
     if(typeof syncMobDrawer==='function') syncMobDrawer();
   } else {
     if(row) row.classList.remove('on');
-    if(banner) banner.classList.remove('on');
     document.body.classList.remove('test-mode');
     unlockedSteps = new Set(Array.from({length: currentStep+1}, function(_,i){return i;}));
     buildNavState();
@@ -2960,11 +3013,8 @@ function startOver(){
   </div>
 </div>
 
-<!-- ══ TEST MODE BANNER ══ -->
-<div class="test-mode-banner" id="test-mode-banner">⚡ TEST MODE — Validation disabled. For demo purposes only.</div>
 
   <span class="test-bar-label">Test Mode</span>
-  <span class="test-bar-desc">Validation is bypassed — navigate freely between steps</span>
   <div class="test-toggle-wrap">
     <span class="test-toggle-lbl" onclick="toggleTestMode()">
       <span id="test-toggle-status">OFF</span
