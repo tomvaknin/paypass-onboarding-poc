@@ -239,9 +239,648 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
 
 /* scroll to top */
 .scroll-top{display:none}
+
+/* ═══════════════════════════════════════════
+   MOBILE RESPONSIVE — inserted after base CSS
+   ═══════════════════════════════════════════ */
+
+/* ── Mobile top bar (hidden on desktop) ── */
+.mob-bar{
+  display:none;
+  position:fixed;top:0;left:0;right:0;
+  height:56px;
+  background:var(--white);
+  border-bottom:1px solid var(--g150);
+  z-index:200;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+}
+.mob-bar-logo{display:flex;align-items:center;gap:8px}
+.mob-bar-logo .logo{width:30px;height:30px;font-size:11px;border-radius:7px}
+.mob-bar-logo .logo-name{font-size:15px;font-weight:700;letter-spacing:-.4px}
+.mob-progress{flex:1;margin:0 16px;display:flex;flex-direction:column;align-items:center;gap:3px}
+.mob-progress .mob-prog-track{width:100%;height:3px;background:var(--g150);border-radius:99px;overflow:hidden}
+.mob-progress .mob-prog-fill{height:100%;background:var(--brand);border-radius:99px;transition:width .4s ease}
+.mob-progress .mob-prog-label{font-size:10.5px;color:var(--g400);font-family:'DM Mono',monospace}
+.mob-menu-btn{
+  width:34px;height:34px;
+  background:var(--g100);border:none;border-radius:7px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.mob-menu-btn:active{background:var(--g200)}
+
+/* ── Mobile nav drawer (hidden on desktop) ── */
+.mob-drawer-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.4);
+  z-index:300;
+}
+.mob-drawer-bg.open{display:block}
+.mob-drawer{
+  position:fixed;top:0;left:0;bottom:0;
+  width:280px;
+  background:var(--white);
+  z-index:301;
+  transform:translateX(-100%);
+  transition:transform .25s ease;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+}
+.mob-drawer.open{transform:translateX(0)}
+.mob-drawer-head{
+  padding:18px 16px 14px;
+  border-bottom:1px solid var(--g100);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.mob-drawer-head .logo-row{display:flex;align-items:center;gap:8px}
+.mob-drawer-nav{padding:10px 10px;flex:1}
+.mob-drawer-foot{padding:14px 16px;border-top:1px solid var(--g100)}
+
+@media (max-width: 768px) {
+  /* Show mobile bar, hide sidebar */
+  .mob-bar{display:flex}
+  .sidebar{display:none}
+
+  /* Main content: no left margin, top padding for mobile bar */
+  .main{
+    margin-left:0;
+    padding:72px 12px 100px;
+  }
+
+  /* Cards: tighter padding */
+  .card{padding:20px 16px;border-radius:var(--r)}
+
+  /* Card title smaller */
+  .card-title{font-size:17px}
+  .card-sub{font-size:12.5px}
+
+  /* Collapse 2-col grids to 1 col on small screens */
+  .gr2{grid-template-columns:1fr}
+  .gr3{grid-template-columns:1fr 1fr}
+
+  /* Step footer: stack on very small screens */
+  .sf{flex-wrap:wrap;gap:10px}
+  .sf .btn-p{flex:1;justify-content:center;min-width:0}
+  .sf .btn-g{width:100%;justify-content:center;order:-1;padding:8px 0;color:var(--g500)}
+
+  /* Buttons: taller touch targets */
+  .btn-p{height:46px;font-size:14px;border-radius:var(--r)}
+  .btn-s{height:46px;font-size:14px}
+
+  /* Inputs: larger for touch */
+  .inp{height:44px;font-size:15px;border-radius:var(--r)}
+  textarea.inp{font-size:14px}
+  .ph-row .sel-w{flex:0 0 82px}
+
+  /* Radio pills: full-width on mobile */
+  .rg{flex-direction:column;gap:7px}
+  .rp{width:100%;padding:10px 14px;border-radius:var(--r);justify-content:flex-start}
+
+  /* Checkbox rows */
+  .chk-row{padding:11px 12px;font-size:13px}
+  .chk-row input{width:16px;height:16px;flex-shrink:0}
+
+  /* Processing rows: tighter label */
+  .proc-lbl{font-size:11px;padding:0 8px}
+  .proc-inp-w{width:68px}
+
+  /* Banner text */
+  .banner{font-size:12px}
+
+  /* Section label */
+  .sl{font-size:9.5px}
+
+  /* Modal: full screen on mobile */
+  .mbg{padding:0;align-items:flex-end}
+  .modal{
+    border-radius:16px 16px 0 0;
+    max-height:92vh;
+    padding:20px 18px;
+  }
+
+  /* Collapsible headers */
+  .col-hd{font-size:12px;padding:10px 11px}
+
+  /* Person cards */
+  .pc{flex-wrap:wrap;gap:10px}
+  .pc-acts{width:100%}
+  .ic-btn{flex:1;height:36px;width:auto}
+
+  /* Success screen */
+  .success-wrap{padding:40px 16px}
+  .success-wrap h1{font-size:20px}
+
+  /* Cond block */
+  .cond{padding:12px}
+
+  /* Proc total bar wraps text properly */
+  .proc-total{font-size:11px;flex-wrap:wrap}
+
+  /* val summary */
+  .val-sum{font-size:12px}
+
+  /* Step dots */
+  .step-dots{margin-bottom:6px}
+}
+
+@media (max-width: 400px) {
+  .gr3{grid-template-columns:1fr}
+  .card{padding:16px 13px}
+  .card-title{font-size:16px}
+  .main{padding:68px 10px 90px}
+  .mob-bar{padding:0 12px}
+}
+
+
+/* ── TEST MODE ── */
+.test-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  height:48px;
+  background:#0f1523;
+  border-top:2px solid #f59e0b;
+  z-index:9000;
+  display:flex;align-items:center;
+  padding:0 20px;
+  gap:14px;
+  font-family:'DM Mono',monospace;
+}
+.test-bar-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#f59e0b;
+  animation:testpulse 1.2s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes testpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.test-bar-label{
+  font-size:11.5px;font-weight:600;
+  color:#f59e0b;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.test-bar-desc{
+  font-size:11px;color:#6b7280;
+  flex:1;
+}
+.test-toggle-wrap{
+  display:flex;align-items:center;gap:9px;
+}
+.test-toggle-lbl{
+  font-size:11.5px;color:#9ca3af;
+  font-family:'DM Mono',monospace;
+  cursor:pointer;user-select:none;
+}
+/* the toggle switch */
+.toggle-sw{
+  position:relative;width:38px;height:22px;flex-shrink:0;cursor:pointer;
+}
+.toggle-sw input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{
+  position:absolute;inset:0;
+  background:#374151;border-radius:99px;
+  transition:background .2s;
+}
+.toggle-thumb{
+  position:absolute;top:3px;left:3px;
+  width:16px;height:16px;border-radius:50%;
+  background:#6b7280;
+  transition:transform .2s,background .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.toggle-sw input:checked ~ .toggle-track{background:#f59e0b}
+.toggle-sw input:checked ~ .toggle-track .toggle-thumb{transform:translateX(16px);background:#fff}
+
+/* floating test mode entry button (when bar is hidden) */
+.test-entry{
+  position:fixed;bottom:16px;right:16px;
+  z-index:8999;
+  background:#0f1523;
+  border:1.5px solid #374151;
+  color:#6b7280;
+  font-family:'DM Mono',monospace;
+  font-size:10.5px;font-weight:600;
+  letter-spacing:.05em;
+  padding:7px 12px;
+  border-radius:99px;
+  cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  transition:border-color .15s,color .15s;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
+}
+.test-entry:hover{border-color:#f59e0b;color:#f59e0b}
+.test-entry .te-dot{width:6px;height:6px;border-radius:50%;background:#374151;transition:background .15s}
+.test-entry:hover .te-dot{background:#f59e0b}
+
+/* test mode body banner */
+.test-mode-banner{
+  display:none;
+  background:#78350f;
+  color:#fef3c7;
+  font-size:11.5px;font-family:'DM Mono',monospace;
+  padding:5px 12px;
+  text-align:center;
+  letter-spacing:.03em;
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:9001;
+}
+.test-mode-banner.on{display:block}
+
+/* when test mode banner is visible, push mob-bar down */
+body.test-mode .mob-bar{top:26px}
+body.test-mode .main{padding-top:72px}
+@media(max-width:768px){
+  body.test-mode .main{padding-top:100px}
+}
+
+/* test mode: dim required star */
+body.test-mode .req{opacity:.3}
+
+/* test mode: highlight the form card with amber outline */
+body.test-mode .card{
+  outline:2px solid rgba(245,158,11,.2);
+}
+
+/* mobile test bar adjustments */
+@media(max-width:768px){
+  .test-bar{padding:0 12px;gap:10px}
+  .test-bar-desc{display:none}
+  .main{padding-bottom:120px}
+}
+
+
+/* ══════════════════════════════════════════
+   PROFILE & TEAM COLLABORATION
+   ══════════════════════════════════════════ */
+
+/* Sidebar profile widget */
+.sb-profile{
+  padding:12px 14px;
+  border-top:1px solid var(--g100);
+  display:flex;align-items:center;gap:10px;
+  cursor:pointer;
+  transition:background .15s;
+  position:relative;
+}
+.sb-profile:hover{background:var(--g50)}
+.sb-profile:hover .sb-profile-arrow{opacity:1}
+.avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--brand),var(--brand-mid));
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:12px;font-weight:700;
+  flex-shrink:0;letter-spacing:-.3px;
+}
+.avatar.sm{width:26px;height:26px;font-size:10px}
+.avatar.lg{width:40px;height:40px;font-size:15px}
+.sb-profile-info{flex:1;min-width:0}
+.sb-profile-name{font-size:12.5px;font-weight:600;color:var(--g800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-profile-email{font-size:10.5px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-profile-arrow{font-size:10px;color:var(--g400);opacity:0;transition:opacity .15s;flex-shrink:0}
+
+/* Profile modal overlay */
+.prof-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(3px);
+  z-index:600;align-items:center;justify-content:center;padding:20px;
+}
+.prof-bg.open{display:flex}
+
+/* Profile panel */
+.prof-panel{
+  background:var(--white);border-radius:16px;
+  width:100%;max-width:520px;
+  box-shadow:0 20px 60px rgba(0,0,0,.18);
+  animation:mIn .22s ease;
+  overflow:hidden;
+  max-height:90vh;
+  display:flex;flex-direction:column;
+}
+.prof-head{
+  padding:20px 22px 16px;
+  border-bottom:1px solid var(--g100);
+  display:flex;align-items:center;gap:14px;
+}
+.prof-head-info{flex:1}
+.prof-head-info h2{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.prof-head-info p{font-size:12.5px;color:var(--g400);margin-top:2px}
+.prof-body{flex:1;overflow-y:auto;padding:0}
+
+/* Profile tabs */
+.prof-tabs{
+  display:flex;border-bottom:1px solid var(--g100);
+  padding:0 22px;
+}
+.prof-tab{
+  padding:11px 4px;margin-right:22px;
+  font-size:13px;font-weight:500;color:var(--g400);
+  cursor:pointer;border-bottom:2px solid transparent;
+  transition:color .15s,border-color .15s;
+  white-space:nowrap;
+}
+.prof-tab:hover{color:var(--g600)}
+.prof-tab.on{color:var(--brand);border-bottom-color:var(--brand)}
+
+/* Tab content */
+.prof-tab-content{display:none;padding:20px 22px}
+.prof-tab-content.on{display:block}
+
+/* My details section */
+.prof-detail-row{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--g100);
+}
+.prof-detail-row:last-child{border-bottom:none}
+.prof-detail-label{font-size:12px;color:var(--g400);width:110px;flex-shrink:0}
+.prof-detail-value{font-size:13px;font-weight:500;color:var(--g800);flex:1}
+.prof-detail-edit{
+  font-size:12px;color:var(--brand);cursor:pointer;
+  background:none;border:none;font-family:'DM Sans',sans-serif;
+  padding:0;transition:opacity .15s;
+}
+.prof-detail-edit:hover{opacity:.7}
+
+/* Invite section */
+.invite-form{
+  background:var(--g50);border:1.5px solid var(--g150);
+  border-radius:var(--r-lg);padding:16px;margin-bottom:18px;
+}
+.invite-form-title{
+  font-size:12.5px;font-weight:600;color:var(--g800);
+  margin-bottom:12px;display:flex;align-items:center;gap:7px;
+}
+.invite-row{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.invite-row .inp{flex:1;min-width:180px}
+.invite-row .sel-w{flex:0 0 150px}
+.invite-row .sel-w select{height:38px}
+
+/* Duration pills */
+.dur-group{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.dur-pill{
+  padding:5px 11px;border-radius:99px;
+  border:1.5px solid var(--g200);
+  font-size:11.5px;color:var(--g500);font-weight:500;
+  cursor:pointer;transition:all .15s;user-select:none;
+  font-family:'DM Mono',monospace;
+}
+.dur-pill:hover{border-color:var(--brand);color:var(--brand)}
+.dur-pill.on{border-color:var(--brand);background:var(--brand-light);color:var(--brand)}
+
+/* Team member list */
+.team-list{display:flex;flex-direction:column;gap:8px}
+.team-card{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 13px;
+  border:1.5px solid var(--g150);border-radius:var(--r-lg);
+  background:var(--white);
+  transition:border-color .15s;
+}
+.team-card:hover{border-color:var(--g300)}
+.team-card-info{flex:1;min-width:0}
+.team-card-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.team-card-email{font-size:11.5px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.team-card-meta{display:flex;align-items:center;gap:7px;margin-top:3px;flex-wrap:wrap}
+
+/* Access badge */
+.acc-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10.5px;font-weight:600;
+  padding:2px 8px;border-radius:99px;
+  font-family:'DM Mono',monospace;
+  white-space:nowrap;
+}
+.acc-badge.active{background:var(--green-light);color:var(--green)}
+.acc-badge.expired{background:var(--g100);color:var(--g400)}
+.acc-badge.pending{background:var(--amber-light);color:var(--amber)}
+.acc-badge.owner{background:var(--brand-light);color:var(--brand)}
+
+/* expiry text */
+.exp-txt{font-size:10.5px;color:var(--g400);font-family:'DM Mono',monospace}
+.exp-txt.soon{color:var(--amber)}
+
+/* revoke btn */
+.revoke-btn{
+  background:none;border:1.5px solid var(--g200);
+  border-radius:6px;padding:4px 9px;
+  font-size:11px;color:var(--g400);cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:border-color .15s,color .15s,background .15s;
+  white-space:nowrap;flex-shrink:0;
+}
+.revoke-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-light)}
+
+/* extend btn */
+.extend-btn{
+  background:none;border:1.5px solid var(--g200);
+  border-radius:6px;padding:4px 9px;
+  font-size:11px;color:var(--brand);cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:border-color .15s,background .15s;
+  white-space:nowrap;flex-shrink:0;
+}
+.extend-btn:hover{border-color:var(--brand);background:var(--brand-light)}
+
+/* empty team */
+.team-empty{
+  text-align:center;padding:30px 16px;
+  border:2px dashed var(--g200);border-radius:var(--r-lg);
+  color:var(--g400);font-size:13px;line-height:1.6;
+}
+.team-empty .tei{font-size:26px;margin-bottom:8px;opacity:.3}
+
+/* invite success toast */
+.toast{
+  position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--g800);color:#fff;
+  font-size:12.5px;padding:10px 18px;border-radius:99px;
+  box-shadow:var(--sh-lg);z-index:10000;
+  opacity:0;transition:opacity .2s,transform .2s;
+  pointer-events:none;white-space:nowrap;
+  display:flex;align-items:center;gap:8px;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* resend link */
+.resend-btn{
+  background:none;border:none;color:var(--brand);
+  font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;
+  padding:0;text-decoration:underline;
+}
+
+/* profile footer */
+.prof-footer{
+  padding:14px 22px;
+  border-top:1px solid var(--g100);
+  display:flex;justify-content:flex-end;gap:8px;
+}
+
+/* online indicator */
+.online-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--green);
+  border:1.5px solid var(--white);
+  position:absolute;bottom:-1px;right:-1px;
+}
+.avatar-wrap{position:relative;flex-shrink:0}
+
+/* mobile adjustments */
+@media(max-width:768px){
+  .prof-panel{max-width:100%;border-radius:16px 16px 0 0;margin-top:auto}
+  .prof-bg{align-items:flex-end;padding:0}
+  .prof-tab{font-size:12.5px;margin-right:16px}
+  .invite-row{flex-direction:column}
+  .invite-row .sel-w{flex:0 0 auto;width:100%}
+  .team-card-meta{gap:5px}
+}
+
+
+/* ── LAST UPDATED ── */
+.lu-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:10px;
+  padding:8px 12px;
+  background:var(--g50);
+  border:1.5px solid var(--g150);
+  border-radius:var(--r);
+  font-size:11.5px;
+  color:var(--g400);
+  gap:10px;
+  flex-wrap:wrap;
+}
+.lu-bar-left{display:flex;align-items:center;gap:7px}
+.lu-icon{color:var(--g300);flex-shrink:0}
+.lu-text{font-family:'DM Mono',monospace;font-size:11px}
+.lu-text strong{color:var(--g600);font-weight:600}
+.lu-autosave{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10.5px;font-family:'DM Mono',monospace;
+  color:var(--green);
+}
+.lu-autosave-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);
+  animation:autopulse 2.5s ease-in-out infinite;
+}
+@keyframes autopulse{0%,100%{opacity:1}50%{opacity:.3}}
+.lu-saving{color:var(--amber)}
+.lu-saving .lu-autosave-dot{background:var(--amber)}
+
+/* sidebar last updated */
+.sb-lastupdate{
+  padding:6px 14px 10px;
+  font-size:10.5px;color:var(--g400);
+  font-family:'DM Mono',monospace;
+  display:flex;align-items:center;gap:6px;
+  border-bottom:1px solid var(--g100);
+}
+.sb-lastupdate svg{flex-shrink:0}
+
+/* step header meta row */
+.card-head-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:6px;
+  flex-wrap:wrap;gap:6px;
+}
+.step-lu{
+  font-size:10.5px;color:var(--g400);
+  font-family:'DM Mono',monospace;
+  display:flex;align-items:center;gap:5px;
+}
+.step-lu.has-update{color:var(--green)}
+.step-lu.has-update svg{stroke:var(--green)}
+
+/* history tooltip on lu bar */
+.lu-history-btn{
+  background:none;border:none;
+  font-size:10.5px;color:var(--brand);
+  cursor:pointer;font-family:'DM Mono',monospace;
+  padding:0;text-decoration:underline;white-space:nowrap;
+}
+.lu-history-btn:hover{opacity:.7}
+
+/* activity log panel */
+.activity-panel{
+  position:fixed;top:0;right:0;bottom:0;width:300px;
+  background:var(--white);border-left:1px solid var(--g150);
+  z-index:400;transform:translateX(100%);
+  transition:transform .25s ease;
+  display:flex;flex-direction:column;
+  box-shadow:-8px 0 24px rgba(0,0,0,.08);
+}
+.activity-panel.open{transform:translateX(0)}
+.act-head{
+  padding:18px 18px 14px;
+  border-bottom:1px solid var(--g100);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.act-head h3{font-size:15px;font-weight:700}
+.act-body{flex:1;overflow-y:auto;padding:14px 18px}
+.act-entry{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--g100);
+}
+.act-entry:last-child{border-bottom:none}
+.act-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--g300);flex-shrink:0;margin-top:5px;
+}
+.act-dot.save{background:var(--green)}
+.act-dot.step{background:var(--brand)}
+.act-dot.invite{background:var(--amber)}
+.act-info .act-what{font-size:12.5px;font-weight:500;color:var(--g800)}
+.act-info .act-when{font-size:11px;color:var(--g400);font-family:'DM Mono',monospace;margin-top:2px}
+.act-info .act-who{font-size:11px;color:var(--g500);margin-top:1px}
+.act-empty{text-align:center;padding:40px 10px;color:var(--g400);font-size:13px}
+
+@media(max-width:768px){
+  .activity-panel{width:100%}
+  .lu-bar{font-size:11px}
+}
+
 </style>
 </head>
 <body>
+
+<!-- ══ MOBILE TOP BAR ══ -->
+<div class="mob-bar" id="mob-bar">
+  <div class="mob-bar-logo">
+    <div class="logo">Pay.</div>
+    <span class="logo-name">Pay.</span>
+  </div>
+  <div class="mob-progress">
+    <div class="mob-prog-track"><div class="mob-prog-fill" id="mob-pf" style="width:10%"></div></div>
+    <div class="mob-prog-label" id="mob-pt">Step 1 of 5</div>
+  </div>
+  <button class="mob-menu-btn" onclick="openMobDrawer()" aria-label="Open navigation">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</div>
+
+<!-- ══ MOBILE DRAWER ══ -->
+<div class="mob-drawer-bg" id="mob-drawer-bg" onclick="closeMobDrawer()"></div>
+<div class="mob-drawer" id="mob-drawer">
+  <div class="mob-drawer-head">
+    <div class="logo-row">
+      <div class="logo">Pay.</div>
+      <span class="logo-name">Pay.</span>
+    </div>
+    <button class="close-btn" onclick="closeMobDrawer()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mob-drawer-nav" id="mob-drawer-nav">
+    <!-- populated by JS, same as sidebar -->
+  </div>
+  <div class="mob-drawer-foot">
+    <div class="prog-row">
+      <div class="prog-track"><div class="prog-fill" id="mob-pf2" style="width:10%"></div></div>
+      <div class="prog-txt" id="mob-pt2">1 / 5</div>
+    </div>
+  </div>
+</div>
+
 <div class="shell">
 
 <!-- ══ SIDEBAR ══ -->
@@ -250,14 +889,30 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
     <div class="logo">Pay.</div>
     <span class="logo-name">Pay.</span>
   </div>
+  <div class="sb-lastupdate" id="sb-lu">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span id="sb-lu-text">Not yet saved</span>
+  </div>
   <nav class="sb-nav" id="sb-nav">
     <!-- steps injected by JS -->
   </nav>
   <div class="sb-foot">
-    <div class="prog-row">
+    <div class="prog-row" style="margin-bottom:10px">
       <div class="prog-track"><div class="prog-fill" id="pf" style="width:10%"></div></div>
       <div class="prog-txt" id="pt">1 / 5</div>
     </div>
+  </div>
+  <!-- Profile widget -->
+  <div class="sb-profile" onclick="openProfile()" title="My profile & team access">
+    <div class="avatar-wrap">
+      <div class="avatar" id="sb-avatar">JD</div>
+      <div class="online-dot"></div>
+    </div>
+    <div class="sb-profile-info">
+      <div class="sb-profile-name" id="sb-profile-name">John Doe</div>
+      <div class="sb-profile-email" id="sb-profile-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="711b1e191f3110121c14121e03015f121e1c">[email&#160;protected]</a></div>
+    </div>
+    <span class="sb-profile-arrow">⚙</span>
   </div>
 </aside>
 
@@ -274,6 +929,19 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
     <div class="chip">Step 1 of 5</div>
     <h1 class="card-title">General information</h1>
     <p class="card-sub">Enter your business's legal details to begin the verification process.</p>
+
+    <div class="lu-bar" id="lu-0">
+      <div class="lu-bar-left">
+        <svg class="lu-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="lu-text" id="lu-0-txt">Not yet saved</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="lu-autosave" id="lu-0-status" style="display:none">
+          <span class="lu-autosave-dot"></span>Saved
+        </span>
+        <button class="lu-history-btn" onclick="openActivityPanel()">View history</button>
+      </div>
+    </div>
   </div>
 
   <div class="val-sum" id="vs-0"><div class="val-sum-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Please fix the following errors</div><ul id="vl-0"></ul></div>
@@ -530,6 +1198,18 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
     <div class="chip">Step 2 of 5</div>
     <h1 class="card-title">Business activity</h1>
     <p class="card-sub">Help us understand how your business operates and processes payments.</p>
+    <div class="lu-bar" id="lu-1">
+      <div class="lu-bar-left">
+        <svg class="lu-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="lu-text" id="lu-1-txt">Not yet saved</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="lu-autosave" id="lu-1-status" style="display:none">
+          <span class="lu-autosave-dot"></span>Saved
+        </span>
+        <button class="lu-history-btn" onclick="openActivityPanel()">View history</button>
+      </div>
+    </div>
   </div>
   <div class="val-sum" id="vs-1"><div class="val-sum-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Please fix the following errors</div><ul id="vl-1"></ul></div>
 
@@ -714,6 +1394,18 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
     <div class="chip">Step 3 of 5</div>
     <h1 class="card-title">Banking information</h1>
     <p class="card-sub">Provide your bank account details for settlement deposits.</p>
+    <div class="lu-bar" id="lu-2">
+      <div class="lu-bar-left">
+        <svg class="lu-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="lu-text" id="lu-2-txt">Not yet saved</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="lu-autosave" id="lu-2-status" style="display:none">
+          <span class="lu-autosave-dot"></span>Saved
+        </span>
+        <button class="lu-history-btn" onclick="openActivityPanel()">View history</button>
+      </div>
+    </div>
   </div>
   <div class="val-sum" id="vs-2"><div class="val-sum-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Please fix the following errors</div><ul id="vl-2"></ul></div>
 
@@ -796,6 +1488,18 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
     <div class="chip">Step 4 of 5</div>
     <h1 class="card-title">Beneficial owner information</h1>
     <p class="card-sub">Federal law (FinCEN CDD Rule) requires listing all individuals with <strong>≥10%</strong> ownership of the company.</p>
+    <div class="lu-bar" id="lu-3">
+      <div class="lu-bar-left">
+        <svg class="lu-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="lu-text" id="lu-3-txt">Not yet saved</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="lu-autosave" id="lu-3-status" style="display:none">
+          <span class="lu-autosave-dot"></span>Saved
+        </span>
+        <button class="lu-history-btn" onclick="openActivityPanel()">View history</button>
+      </div>
+    </div>
   </div>
 
   <div class="banner warn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Providing false or incomplete beneficial ownership information is a federal crime under 31 CFR 1010.230. All information is verified against government records.</span></div>
@@ -837,6 +1541,18 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
     <div class="chip">Step 5 of 5</div>
     <h1 class="card-title">Individuals information</h1>
     <p class="card-sub">Provide information about key individuals responsible for this account.</p>
+    <div class="lu-bar" id="lu-4">
+      <div class="lu-bar-left">
+        <svg class="lu-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="lu-text" id="lu-4-txt">Not yet saved</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="lu-autosave" id="lu-4-status" style="display:none">
+          <span class="lu-autosave-dot"></span>Saved
+        </span>
+        <button class="lu-history-btn" onclick="openActivityPanel()">View history</button>
+      </div>
+    </div>
   </div>
   <div class="val-sum" id="vs-4"><div class="val-sum-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Please fix the following errors</div><ul id="vl-4"></ul></div>
 
@@ -992,7 +1708,7 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════
@@ -1248,7 +1964,8 @@ function isAdult(dateStr) {
 
 function validateAndNext(stepIdx) {
   const validators = [validateStep0, validateStep1, validateStep2, validateStep3, validateStep4];
-  if(validators[stepIdx]()) {
+  const pass = TEST_MODE ? true : validators[stepIdx]();
+  if(pass) {
     if(stepIdx === 4) {
       document.getElementById('ref-num').textContent = 'REF-' + new Date().getFullYear() + '-MRC-' + Math.floor(1000 + Math.random() * 9000);
       goStep(STEPS);
@@ -1535,6 +2252,531 @@ function toggleMultiPill(el){
   el.classList.toggle('on');
 }
 
+
+// ── Mobile drawer ──────────────────────────
+function openMobDrawer(){
+  document.getElementById('mob-drawer').classList.add('open');
+  document.getElementById('mob-drawer-bg').classList.add('open');
+  syncMobDrawer();
+}
+function closeMobDrawer(){
+  document.getElementById('mob-drawer').classList.remove('open');
+  document.getElementById('mob-drawer-bg').classList.remove('open');
+}
+function syncMobDrawer(){
+  const src = document.getElementById('sb-nav').innerHTML;
+  document.getElementById('mob-drawer-nav').innerHTML = src;
+  // re-bind clicks in drawer
+  document.querySelectorAll('#mob-drawer-nav .ni').forEach((el,i)=>{
+    el.onclick = function(){
+      if(!this.classList.contains('locked')){ closeMobDrawer(); tryGoStep(i); }
+    };
+  });
+}
+function updateMobProgress(){
+  const pct = ((currentStep+1)/STEPS)*100;
+  const fill = document.getElementById('mob-pf');
+  const fill2 = document.getElementById('mob-pf2');
+  const lbl  = document.getElementById('mob-pt');
+  const lbl2 = document.getElementById('mob-pt2');
+  if(fill)  fill.style.width  = pct+'%';
+  if(fill2) fill2.style.width = pct+'%';
+  if(lbl)   lbl.textContent   = 'Step '+(currentStep+1)+' of '+STEPS;
+  if(lbl2)  lbl2.textContent  = (currentStep+1)+' / '+STEPS;
+}
+// Hook into existing updateProgress
+const _origUpdateProgress = updateProgress;
+window.updateProgress = function(){
+  _origUpdateProgress();
+  updateMobProgress();
+};
+
+
+
+
+// ══════════════════════════════════════════════
+//  LAST UPDATED & ACTIVITY LOG
+// ══════════════════════════════════════════════
+var activityLog = [];
+var stepLastSaved = [null, null, null, null, null]; // per-step timestamps
+
+function getNow(){ return new Date(); }
+
+function formatRelTime(date){
+  if(!date) return 'Not yet saved';
+  var diff = Math.floor((getNow() - date) / 1000);
+  if(diff < 5)  return 'Just now';
+  if(diff < 60) return diff + 's ago';
+  var m = Math.floor(diff/60);
+  if(m < 60) return m + 'm ago';
+  var h = Math.floor(m/60);
+  if(h < 24) return h + 'h ago';
+  return date.toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+function formatAbsTime(date){
+  if(!date) return '';
+  return date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) +
+    ' at ' + date.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+}
+
+function recordActivity(type, what, who){
+  activityLog.unshift({
+    type: type,      // 'save' | 'step' | 'invite'
+    what: what,
+    who:  who || profileData.name,
+    when: getNow()
+  });
+  if(activityLog.length > 50) activityLog.pop();
+  renderActivityLog();
+}
+
+function markStepSaved(stepIdx){
+  var now = getNow();
+  stepLastSaved[stepIdx] = now;
+
+  // Update the lu-bar for this step
+  var luTxt = document.getElementById('lu-' + stepIdx + '-txt');
+  var luStatus = document.getElementById('lu-' + stepIdx + '-status');
+  if(luTxt) luTxt.textContent = 'Last saved: ' + formatAbsTime(now);
+  if(luStatus){ luStatus.style.display = 'inline-flex'; luStatus.className = 'lu-autosave'; luStatus.innerHTML = '<span class="lu-autosave-dot"></span>Saved'; }
+
+  // Update sidebar
+  updateSidebarLU(now);
+
+  // Flash "Saving..." then "Saved"
+  if(luStatus){
+    luStatus.className = 'lu-autosave lu-saving';
+    luStatus.innerHTML = '<span class="lu-autosave-dot"></span>Saving…';
+    setTimeout(function(){
+      luStatus.className = 'lu-autosave';
+      luStatus.innerHTML = '<span class="lu-autosave-dot"></span>Saved';
+    }, 600);
+  }
+}
+
+function updateSidebarLU(date){
+  var el = document.getElementById('sb-lu-text');
+  if(el) el.textContent = 'Saved ' + formatRelTime(date);
+}
+
+// Refresh relative times every 30s
+setInterval(function(){
+  stepLastSaved.forEach(function(ts, i){
+    if(!ts) return;
+    var el = document.getElementById('lu-' + i + '-txt');
+    if(el) el.textContent = 'Last saved: ' + formatAbsTime(ts);
+  });
+  // Find most recent
+  var latest = stepLastSaved.filter(Boolean).sort(function(a,b){return b-a;})[0];
+  if(latest) updateSidebarLU(latest);
+}, 30000);
+
+// Hook into validateAndNext to record step completions and mark saved
+var _origValidateAndNext = validateAndNext;
+window.validateAndNext = function(stepIdx){
+  var stepNames = ['General information','Business activity','Banking information','Beneficial owner info','Individuals info'];
+  // Run original — if it advances, record
+  var before = currentStep;
+  _origValidateAndNext(stepIdx);
+  if(currentStep !== before || TEST_MODE){
+    markStepSaved(stepIdx);
+    recordActivity('step', 'Completed: ' + stepNames[stepIdx]);
+    if(stepIdx === 4){
+      recordActivity('save', 'Application submitted');
+    }
+  }
+};
+
+// Hook into save draft button — track manual saves
+document.addEventListener('click', function(e){
+  var btn = e.target.closest('.btn-g');
+  if(btn && btn.textContent.indexOf('Save draft') !== -1){
+    markStepSaved(currentStep);
+    recordActivity('save', 'Draft saved — ' + ['General info','Business activity','Banking info','Beneficial owners','Individuals'][currentStep]);
+    showToast('Draft saved');
+  }
+});
+
+// Auto-record field changes (debounced, per-step)
+var fieldChangeTimers = {};
+document.addEventListener('input', function(e){
+  var inp = e.target;
+  if(!inp.closest('.card')) return;
+  var s = currentStep;
+  clearTimeout(fieldChangeTimers[s]);
+  fieldChangeTimers[s] = setTimeout(function(){
+    // Show "unsaved changes" state
+    var luStatus = document.getElementById('lu-' + s + '-status');
+    if(luStatus){
+      luStatus.style.display = 'inline-flex';
+      luStatus.className = 'lu-autosave lu-saving';
+      luStatus.innerHTML = '<span class="lu-autosave-dot"></span>Unsaved changes';
+    }
+  }, 300);
+});
+
+// Also record invites in activity log
+var _origSendInvite = sendInvite;
+window.sendInvite = function(){
+  var emailBefore = document.getElementById('invite-email').value.trim();
+  _origSendInvite();
+  // Check if member was added (list grew)
+  var emailEl = document.getElementById('invite-email');
+  if(emailEl && emailEl.value === '' && emailEl.className.indexOf('err') === -1){
+    recordActivity('invite', 'Invited ' + emailBefore + ' to collaborate');
+  }
+};
+
+// Activity panel
+function openActivityPanel(){
+  document.getElementById('activity-panel').classList.add('open');
+}
+function closeActivityPanel(){
+  document.getElementById('activity-panel').classList.remove('open');
+}
+
+function renderActivityLog(){
+  var el = document.getElementById('act-body');
+  if(!el) return;
+  if(activityLog.length === 0){
+    el.innerHTML = '<div class="act-empty">No activity yet.<br>Changes will appear here as you fill in the form.</div>';
+    return;
+  }
+  el.innerHTML = activityLog.map(function(e){
+    return '<div class="act-entry">' +
+      '<div class="act-dot ' + e.type + '"></div>' +
+      '<div class="act-info">' +
+        '<div class="act-what">' + e.what + '</div>' +
+        '<div class="act-when">' + formatAbsTime(e.when) + '</div>' +
+        '<div class="act-who">by ' + e.who + '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// Seed initial activity entry
+document.addEventListener('DOMContentLoaded', function(){
+  recordActivity('step', 'Onboarding started', profileData.name);
+});
+
+// ══════════════════════════════════════════════
+//  PROFILE & TEAM
+// ══════════════════════════════════════════════
+
+// ── Seed data ──
+let profileData = {
+  name: 'John Doe',
+  email: 'john@acmecorp.com',
+  initials: 'JD'
+};
+
+let teamMembers = [
+  { id:1, name:'Sarah Chen',    email:'sarah@acmecorp.com',  role:'editor', dur:'forever', expiresAt:null,            status:'active',  isOwner:true  },
+];
+
+let selectedDur = '1d';
+let editingField = null;
+
+function openProfile(){
+  renderTeamList();
+  updateTeamBadge();
+  document.getElementById('prof-modal').classList.add('open');
+}
+function closeProfile(){
+  document.getElementById('prof-modal').classList.remove('open');
+  cancelEditField();
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const bg = document.getElementById('prof-modal');
+  if(bg) bg.addEventListener('click', e => { if(e.target===bg) closeProfile(); });
+  renderTeamList();
+  updateTeamBadge();
+});
+
+// ── Tabs ──
+function switchProfTab(tab, el){
+  document.querySelectorAll('.prof-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.prof-tab-content').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('tab-'+tab).classList.add('on');
+}
+
+// ── Duration pills ──
+function pickDur(el, val){
+  document.querySelectorAll('.dur-pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  selectedDur = val;
+}
+
+// ── Invite ──
+function sendInvite(){
+  const email = document.getElementById('invite-email').value.trim();
+  const role  = document.getElementById('invite-role').value;
+  const errEl = document.getElementById('e-invite-email');
+  const errMsg = document.getElementById('e-invite-msg');
+
+  // Validate email
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    errEl.classList.add('show');
+    errMsg.textContent = 'Please enter a valid email address';
+    document.getElementById('invite-email').classList.add('err');
+    return;
+  }
+  // Check duplicate
+  if(teamMembers.find(m=>m.email.toLowerCase()===email.toLowerCase())){
+    errEl.classList.add('show');
+    errMsg.textContent = email + ' already has access';
+    document.getElementById('invite-email').classList.add('err');
+    return;
+  }
+  errEl.classList.remove('show');
+  document.getElementById('invite-email').classList.remove('err');
+
+  const now = new Date();
+  let expiresAt = null;
+  const durMap = {'5h':5*60*60*1000,'1d':24*60*60*1000,'7d':7*24*60*60*1000,'1m':30*24*60*60*1000,'forever':null};
+  if(durMap[selectedDur]!==null) expiresAt = new Date(now.getTime() + durMap[selectedDur]);
+
+  // Derive initials & name
+  const localPart = email.split('@')[0];
+  const nameParts = localPart.replace(/[._-]/g,' ').split(' ');
+  const name = nameParts.map(p=>p.charAt(0).toUpperCase()+p.slice(1)).join(' ');
+  const initials = nameParts.slice(0,2).map(p=>p[0]?.toUpperCase()||'').join('');
+
+  teamMembers.push({
+    id: Date.now(),
+    name, email, role, dur: selectedDur,
+    expiresAt, status:'pending', isOwner:false, initials
+  });
+
+  document.getElementById('invite-email').value = '';
+  renderTeamList();
+  updateTeamBadge();
+  showToast('✉ Invite sent to ' + email);
+}
+
+// ── Revoke ──
+function revokeAccess(id){
+  const m = teamMembers.find(m=>m.id===id);
+  if(!m || m.isOwner) return;
+  if(!confirm('Revoke access for ' + m.email + '? They will no longer be able to view or edit this application.')) return;
+  teamMembers = teamMembers.filter(m=>m.id!==id);
+  renderTeamList();
+  updateTeamBadge();
+  showToast('Access revoked for ' + m.email);
+}
+
+// ── Extend ──
+function extendAccess(id){
+  const m = teamMembers.find(function(x){return x.id===id;});
+  if(!m) return;
+  // populate extend modal
+  document.getElementById('extend-target-name').textContent = m.name;
+  document.getElementById('extend-target-email').textContent = m.email;
+  document.getElementById('extend-modal-id').value = id;
+  // reset pills
+  document.querySelectorAll('.ext-pill').forEach(function(p){p.classList.remove('on');});
+  document.querySelector('.ext-pill[data-val="7d"]').classList.add('on');
+  document.getElementById('extend-modal').classList.add('open');
+}
+function pickExtPill(el){
+  document.querySelectorAll('.ext-pill').forEach(function(p){p.classList.remove('on');});
+  el.classList.add('on');
+}
+function confirmExtend(){
+  const id = parseInt(document.getElementById('extend-modal-id').value);
+  const m = teamMembers.find(function(x){return x.id===id;});
+  if(!m) return;
+  const activePill = document.querySelector('.ext-pill.on');
+  const key = activePill ? activePill.getAttribute('data-val') : '7d';
+  const labels = {'5h':'5 hours','1d':'1 day','7d':'7 days','1m':'1 month','forever':'forever'};
+  const durMap = {'5h':5*60*60*1000,'1d':86400000,'7d':7*86400000,'1m':30*86400000,'forever':null};
+  m.dur = key;
+  m.expiresAt = durMap[key]!==null ? new Date(Date.now()+durMap[key]) : null;
+  m.status = 'active';
+  closeExtendModal();
+  renderTeamList();
+  showToast('Access extended to ' + labels[key] + ' for ' + m.email);
+}
+function closeExtendModal(){
+  document.getElementById('extend-modal').classList.remove('open');
+}
+
+// ── Resend ──
+function resendInvite(id){
+  const m = teamMembers.find(m=>m.id===id);
+  if(!m) return;
+  showToast('✉ Invite resent to ' + m.email);
+}
+
+// ── Render team list ──
+function renderTeamList(){
+  const el = document.getElementById('team-list');
+  const countEl = document.getElementById('team-list-count');
+  if(!el) return;
+
+  if(teamMembers.length===0){
+    el.innerHTML = '<div class="team-empty"><div class="tei">👥</div>No team members yet.<br>Invite a colleague to collaborate on this application.</div>';
+    if(countEl) countEl.textContent = '';
+    return;
+  }
+  if(countEl) countEl.textContent = teamMembers.length + ' ' + (teamMembers.length===1?'person':'people');
+
+  el.innerHTML = teamMembers.map(function(m) {
+    var ini = m.initials || (m.name||'?').split(' ').slice(0,2).map(function(p){return (p[0]||'').toUpperCase();}).join('');
+    var expLabel = formatExpiry(m.expiresAt, m.dur);
+    var statusBadge = m.isOwner
+      ? '<span class="acc-badge owner">Owner</span>'
+      : m.status==='pending'
+        ? '<span class="acc-badge pending">&#8987; Pending</span>'
+        : (m.expiresAt && new Date()>m.expiresAt)
+          ? '<span class="acc-badge expired">Expired</span>'
+          : '<span class="acc-badge active">&#9679; Active</span>';
+    var roleLbl = m.role==='editor' ? 'Can edit' : m.role==='viewer' ? 'View only' : 'Owner';
+    var resendBtn = m.status==='pending' ? '<button class="resend-btn" onclick="resendInvite('+m.id+')">Resend</button>' : '';
+    var actions = m.isOwner ? '' :
+      '<button class="extend-btn" onclick="extendAccess('+m.id+')" title="Extend access">Extend</button>' +
+      '<button class="revoke-btn" onclick="revokeAccess('+m.id+')" title="Revoke access">Revoke</button>' +
+      resendBtn;
+    var youBadge = m.isOwner ? ' <span style="font-size:10.5px;color:var(--g400);font-weight:400">(you)</span>' : '';
+    var expHtml = expLabel ? '<span class="exp-txt">&middot; '+expLabel+'</span>' : '';
+    return '<div class="team-card">' +
+      '<div class="avatar sm" style="flex-shrink:0">'+ini+'</div>' +
+      '<div class="team-card-info">' +
+        '<div class="team-card-name">'+m.name+youBadge+'</div>' +
+        '<div class="team-card-email">'+m.email+'</div>' +
+        '<div class="team-card-meta">'+statusBadge+'<span style="font-size:10.5px;color:var(--g400)">'+roleLbl+'</span>'+expHtml+'</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end">'+actions+'</div>' +
+    '</div>';
+  }).join('');
+}
+
+function formatExpiry(date, dur){
+  if(dur==='forever' || !date) return dur==='forever'?'No expiry':'';
+  const now = new Date();
+  const diff = date - now;
+  if(diff<0) return 'Expired';
+  const h = Math.floor(diff/3600000);
+  const d = Math.floor(diff/86400000);
+  if(h<1) return 'Expires < 1h';
+  if(h<24) return 'Expires in '+h+'h';
+  if(d<2) return 'Expires tomorrow';
+  if(d<30) return 'Expires in '+d+'d';
+  return 'Expires '+date.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+
+function updateTeamBadge(){
+  const badge = document.getElementById('team-count-badge');
+  const count = teamMembers.filter(m=>!m.isOwner).length;
+  if(badge) badge.textContent = count;
+}
+
+// ── Profile editing ──
+function editProfileField(field){
+  editingField = field;
+  const block = document.getElementById('prof-edit-block');
+  const lbl = document.getElementById('prof-edit-label');
+  const inp = document.getElementById('prof-edit-input');
+  if(field==='name'){ lbl.textContent='Edit full name'; inp.value=profileData.name; inp.type='text'; }
+  else { lbl.textContent='Edit email address'; inp.value=profileData.email; inp.type='email'; }
+  block.style.display='block';
+  inp.focus();
+}
+function saveProfileField(){
+  const inp = document.getElementById('prof-edit-input').value.trim();
+  if(!inp) return;
+  if(editingField==='name'){
+    profileData.name = inp;
+    profileData.initials = inp.split(' ').slice(0,2).map(p=>p[0]?.toUpperCase()||'').join('');
+    document.getElementById('pd-name').textContent = inp;
+    document.getElementById('prof-head-name').textContent = inp;
+    document.getElementById('sb-profile-name').textContent = inp;
+    document.getElementById('sb-avatar').textContent = profileData.initials;
+    document.getElementById('prof-avatar-lg').textContent = profileData.initials;
+    // update owner in team list
+    const owner = teamMembers.find(m=>m.isOwner);
+    if(owner){ owner.name=inp; owner.initials=profileData.initials; }
+  } else {
+    profileData.email = inp;
+    document.getElementById('pd-email').textContent = inp;
+    document.getElementById('prof-head-email').textContent = inp + ' · Account owner';
+    document.getElementById('sb-profile-email').textContent = inp;
+    const owner = teamMembers.find(m=>m.isOwner);
+    if(owner) owner.email = inp;
+  }
+  renderTeamList();
+  cancelEditField();
+  showToast('Profile updated');
+}
+function cancelEditField(){
+  editingField=null;
+  const block=document.getElementById('prof-edit-block');
+  if(block) block.style.display='none';
+}
+
+// ── Toast ──
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  const m=document.getElementById('toast-msg');
+  m.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ══════════════════════════════════════════════
+//  TEST MODE
+// ══════════════════════════════════════════════
+let TEST_MODE = false;
+
+function openTestBar(){
+  document.getElementById('test-bar').style.display = 'flex';
+  document.getElementById('test-entry-btn').style.display = 'none';
+}
+function closeTestBar(){
+  document.getElementById('test-bar').style.display = 'none';
+  document.getElementById('test-entry-btn').style.display = 'flex';
+}
+
+function toggleTestMode(){
+  const chk = document.getElementById('test-mode-chk');
+  // sync checkbox if called from label click
+  if(document.activeElement !== chk) chk.checked = !chk.checked;
+  TEST_MODE = chk.checked;
+  const status = document.getElementById('test-toggle-status');
+  const banner = document.getElementById('test-mode-banner');
+  const entryBtn = document.getElementById('test-entry-btn');
+  const bar = document.getElementById('test-bar');
+
+  if(TEST_MODE){
+    status.textContent = 'ON';
+    status.style.color = '#f59e0b';
+    banner.classList.add('on');
+    document.body.classList.add('test-mode');
+    bar.style.borderTopColor = '#f59e0b';
+    // Unlock all steps so user can jump freely
+    unlockedSteps = new Set([0,1,2,3,4]);
+    buildNavState();
+    syncMobDrawer && syncMobDrawer();
+  } else {
+    status.textContent = 'OFF';
+    status.style.color = '#6b7280';
+    banner.classList.remove('on');
+    document.body.classList.remove('test-mode');
+    // Re-lock steps beyond current
+    unlockedSteps = new Set(Array.from({length: currentStep+1}, (_,i) => i));
+    buildNavState();
+    syncMobDrawer && syncMobDrawer();
+    // Clear all validation errors
+    document.querySelectorAll('.inp.err').forEach(el => el.classList.remove('err','ok'));
+    document.querySelectorAll('.err-msg.show').forEach(el => el.classList.remove('show'));
+    document.querySelectorAll('.val-sum.show').forEach(el => el.classList.remove('show'));
+  }
+}
+
 // ══════════════════════════════════════════════
 //  MISC
 // ══════════════════════════════════════════════
@@ -1592,5 +2834,191 @@ function startOver(){
 })();
 </script>
 
-</body>
-</html>
+
+
+<!-- ══ PROFILE & TEAM MODAL ══ -->
+<div class="prof-bg" id="prof-modal">
+  <div class="prof-panel">
+
+    <!-- Header -->
+    <div class="prof-head">
+      <div class="avatar-wrap">
+        <div class="avatar lg" id="prof-avatar-lg">JD</div>
+        <div class="online-dot"></div>
+      </div>
+      <div class="prof-head-info">
+        <h2 id="prof-head-name">John Doe</h2>
+        <p id="prof-head-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="94fefbfcfad4f5f7f9f1f7fbe6e4baf7fbf9">[email&#160;protected]</a> · Account owner</p>
+      </div>
+      <button class="close-btn" onclick="closeProfile()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="prof-tabs">
+      <div class="prof-tab on" onclick="switchProfTab('details',this)">My profile</div>
+      <div class="prof-tab" onclick="switchProfTab('team',this)">Team access <span id="team-count-badge" style="background:var(--brand-light);color:var(--brand);font-size:10px;font-weight:700;padding:1px 6px;border-radius:99px;margin-left:4px">0</span></div>
+    </div>
+
+    <!-- Tab: My profile -->
+    <div class="prof-tab-content on" id="tab-details">
+      <div class="prof-detail-row">
+        <div class="prof-detail-label">Full name</div>
+        <div class="prof-detail-value" id="pd-name">John Doe</div>
+        <button class="prof-detail-edit" onclick="editProfileField('name')">Edit</button>
+      </div>
+      <div class="prof-detail-row">
+        <div class="prof-detail-label">Email</div>
+        <div class="prof-detail-value" id="pd-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="acc6c3c4c2eccdcfc1c9cfc3dedc82cfc3c1">[email&#160;protected]</a></div>
+        <button class="prof-detail-edit" onclick="editProfileField('email')">Edit</button>
+      </div>
+      <div class="prof-detail-row">
+        <div class="prof-detail-label">Role</div>
+        <div class="prof-detail-value">Account owner</div>
+        <span style="font-size:11px;color:var(--g300)">Cannot change</span>
+      </div>
+      <div class="prof-detail-row">
+        <div class="prof-detail-label">Application</div>
+        <div class="prof-detail-value" style="font-family:'DM Mono',monospace;font-size:12px">ACME Corp Inc.</div>
+      </div>
+      <div class="prof-detail-row">
+        <div class="prof-detail-label">Last active</div>
+        <div class="prof-detail-value" id="pd-lastactive" style="color:var(--g400)">Just now</div>
+      </div>
+      <!-- inline edit fields (hidden) -->
+      <div id="prof-edit-block" style="display:none;margin-top:14px;background:var(--g50);border:1.5px solid var(--g150);border-radius:var(--r-lg);padding:14px">
+        <div class="field" style="margin-bottom:10px">
+          <label class="lbl" id="prof-edit-label">Edit name</label>
+          <input class="inp" id="prof-edit-input" type="text" placeholder="">
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-p" style="height:36px;padding:0 16px;font-size:12.5px" onclick="saveProfileField()">Save</button>
+          <button class="btn-s" style="height:36px;padding:0 14px;font-size:12.5px" onclick="cancelEditField()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Team access -->
+    <div class="prof-tab-content" id="tab-team">
+
+      <!-- Invite form -->
+      <div class="invite-form">
+        <div class="invite-form-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          Invite a team member
+        </div>
+        <div class="invite-row">
+          <input class="inp" id="invite-email" type="email" placeholder="colleague@company.com" style="height:38px">
+          <div class="sel-w">
+            <select class="inp" id="invite-role" style="height:38px">
+              <option value="editor">Can edit</option>
+              <option value="viewer">Can view only</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <div style="font-size:11.5px;color:var(--g500);margin-bottom:6px;font-weight:500">Access duration:</div>
+          <div class="dur-group" id="dur-group">
+            <span class="dur-pill" onclick="pickDur(this,'5h')">5 hours</span>
+            <span class="dur-pill on" onclick="pickDur(this,'1d')">1 day</span>
+            <span class="dur-pill" onclick="pickDur(this,'7d')">7 days</span>
+            <span class="dur-pill" onclick="pickDur(this,'1m')">1 month</span>
+            <span class="dur-pill" onclick="pickDur(this,'forever')">Forever</span>
+          </div>
+        </div>
+        <div class="err-msg" id="e-invite-email" style="margin-top:8px">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+          <span id="e-invite-msg">Valid email address required</span>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:flex-end">
+          <button class="btn-p" style="height:38px;padding:0 18px;font-size:13px" onclick="sendInvite()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send invite
+          </button>
+        </div>
+      </div>
+
+      <!-- Team list -->
+      <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
+        <span>People with access</span>
+        <span id="team-list-count" style="font-family:'DM Mono',monospace;color:var(--g400);font-weight:400;font-size:11px"></span>
+      </div>
+      <div class="team-list" id="team-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg">Invite sent!</span>
+</div>
+
+
+<!-- ══ ACTIVITY LOG PANEL ══ -->
+<div class="activity-panel" id="activity-panel">
+  <div class="act-head">
+    <h3>Edit history</h3>
+    <button class="close-btn" onclick="closeActivityPanel()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="act-body" id="act-body">
+    <div class="act-empty">No activity yet.<br>Changes will appear here as you fill in the form.</div>
+  </div>
+</div>
+
+<!-- ══ EXTEND ACCESS MODAL ══ -->
+<div class="mbg" id="extend-modal">
+  <div class="modal" style="max-width:400px">
+    <div class="mh">
+      <h2>Extend access</h2>
+      <button class="close-btn" onclick="closeExtendModal()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <input type="hidden" id="extend-modal-id">
+    <div style="background:var(--g50);border:1.5px solid var(--g150);border-radius:var(--r-lg);padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px">
+      <div class="avatar sm" id="extend-target-init" style="flex-shrink:0">?</div>
+      <div>
+        <div style="font-size:13px;font-weight:600" id="extend-target-name">—</div>
+        <div style="font-size:11.5px;color:var(--g400)" id="extend-target-email">—</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="lbl">New access duration</label>
+      <div class="dur-group" style="flex-direction:column;gap:7px">
+        <label class="ext-pill rp" data-val="5h" onclick="pickExtPill(this)">5 hours</label>
+        <label class="ext-pill rp" data-val="1d" onclick="pickExtPill(this)">1 day</label>
+        <label class="ext-pill rp on" data-val="7d" onclick="pickExtPill(this)">7 days</label>
+        <label class="ext-pill rp" data-val="1m" onclick="pickExtPill(this)">1 month</label>
+        <label class="ext-pill rp" data-val="forever" onclick="pickExtPill(this)">Forever — no expiry</label>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:18px">
+      <button class="btn-p" style="flex:1;justify-content:center" onclick="confirmExtend()">Confirm extension</button>
+      <button class="btn-s" onclick="closeExtendModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TEST MODE BANNER ══ -->
+<div class="test-mode-banner" id="test-mode-banner">⚡ TEST MODE — Validation disabled. For demo purposes only.</div>
+
+<!-- ══ TEST MODE FLOATING ENTRY ══ -->
+<button class="test-entry" id="test-entry-btn" onclick="openTestBar()" title="Toggle test mode">
+  <span class="te-dot"></span>Test mode
+</button>
+
+<!-- ══ TEST MODE BAR ══ -->
+<div class="test-bar" id="test-bar" style="display:none">
+  <div class="test-bar-dot"></div>
+  <span class="test-bar-label">Test Mode</span>
+  <span class="test-bar-desc">Validation is bypassed — navigate freely between steps</span>
+  <div class="test-toggle-wrap">
+    <span class="test-toggle-lbl" onclick="toggleTestMode()">
+      <span id="test-toggle-status">OFF</span
