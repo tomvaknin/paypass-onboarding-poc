@@ -394,82 +394,6 @@ textarea.inp{height:auto;padding:10px 11px;resize:vertical;min-height:84px;line-
 }
 
 
-/* ── TEST MODE ── */
-.test-bar{
-  position:fixed;bottom:0;left:0;right:0;
-  height:48px;
-  background:#0f1523;
-  border-top:2px solid #f59e0b;
-  z-index:9000;
-  display:flex;align-items:center;
-  padding:0 20px;
-  gap:14px;
-  font-family:'DM Mono',monospace;
-}
-.test-bar-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:#f59e0b;
-  animation:testpulse 1.2s ease-in-out infinite;
-  flex-shrink:0;
-}
-@keyframes testpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-.test-bar-label{
-  font-size:11.5px;font-weight:600;
-  color:#f59e0b;
-  letter-spacing:.06em;text-transform:uppercase;
-}
-.test-bar-desc{
-  font-size:11px;color:#6b7280;
-  flex:1;
-}
-.test-toggle-wrap{
-  display:flex;align-items:center;gap:9px;
-}
-.test-toggle-lbl{
-  font-size:11.5px;color:#9ca3af;
-  font-family:'DM Mono',monospace;
-  cursor:pointer;user-select:none;
-}
-/* the toggle switch */
-.toggle-sw{
-  position:relative;width:38px;height:22px;flex-shrink:0;cursor:pointer;
-}
-.toggle-sw input{opacity:0;width:0;height:0;position:absolute}
-.toggle-track{
-  position:absolute;inset:0;
-  background:#374151;border-radius:99px;
-  transition:background .2s;
-}
-.toggle-thumb{
-  position:absolute;top:3px;left:3px;
-  width:16px;height:16px;border-radius:50%;
-  background:#6b7280;
-  transition:transform .2s,background .2s;
-  box-shadow:0 1px 3px rgba(0,0,0,.3);
-}
-.toggle-sw input:checked ~ .toggle-track{background:#f59e0b}
-.toggle-sw input:checked ~ .toggle-track .toggle-thumb{transform:translateX(16px);background:#fff}
-
-/* floating test mode entry button (when bar is hidden) */
-.test-entry{
-  position:fixed;bottom:16px;right:16px;
-  z-index:8999;
-  background:#0f1523;
-  border:1.5px solid #374151;
-  color:#6b7280;
-  font-family:'DM Mono',monospace;
-  font-size:10.5px;font-weight:600;
-  letter-spacing:.05em;
-  padding:7px 12px;
-  border-radius:99px;
-  cursor:pointer;
-  display:flex;align-items:center;gap:6px;
-  transition:border-color .15s,color .15s;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
-}
-.test-entry:hover{border-color:#f59e0b;color:#f59e0b}
-.test-entry .te-dot{width:6px;height:6px;border-radius:50%;background:#374151;transition:background .15s}
-.test-entry:hover .te-dot{background:#f59e0b}
 
 /* test mode body banner */
 .test-mode-banner{
@@ -503,9 +427,6 @@ body.test-mode .card{
 
 /* mobile test bar adjustments */
 @media(max-width:768px){
-  .test-bar{padding:0 12px;gap:10px}
-  .test-bar-desc{display:none}
-  .main{padding-bottom:120px}
 }
 
 
@@ -839,6 +760,40 @@ body.test-mode .card{
   .lu-bar{font-size:11px}
 }
 
+
+/* ── TEST MODE INLINE TOGGLE (sidebar) ── */
+.test-mode-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;
+  border-top:1px solid var(--g100);
+  cursor:pointer;
+  transition:background .15s;
+  user-select:none;
+}
+.test-mode-row:hover{background:var(--g50)}
+.test-mode-row-left{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--g500);font-weight:500}
+.test-mode-row svg{flex-shrink:0;color:var(--g400);transition:color .15s}
+.test-mode-row.on .test-mode-row-left{color:#d97706}
+.test-mode-row.on svg{color:#d97706}
+
+/* compact inline toggle */
+.sw-inline{
+  position:relative;width:34px;height:20px;flex-shrink:0;
+}
+.sw-inline input{opacity:0;width:0;height:0;position:absolute}
+.sw-track{
+  position:absolute;inset:0;background:var(--g200);
+  border-radius:99px;transition:background .2s;
+}
+.sw-thumb{
+  position:absolute;top:2px;left:2px;
+  width:16px;height:16px;border-radius:50%;
+  background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);
+  transition:transform .2s;
+}
+.sw-inline input:checked ~ .sw-track{background:#f59e0b}
+.sw-inline input:checked ~ .sw-track .sw-thumb{transform:translateX(14px)}
+
 </style>
 </head>
 <body>
@@ -901,6 +856,17 @@ body.test-mode .card{
       <div class="prog-track"><div class="prog-fill" id="pf" style="width:10%"></div></div>
       <div class="prog-txt" id="pt">1 / 5</div>
     </div>
+  </div>
+  <!-- Test mode toggle -->
+  <div class="test-mode-row" id="test-mode-row" onclick="document.getElementById('test-mode-chk').click()">
+    <div class="test-mode-row-left">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      Test mode
+    </div>
+    <label class="sw-inline" onclick="event.stopPropagation()">
+      <input type="checkbox" id="test-mode-chk" onchange="toggleTestMode()">
+      <div class="sw-track"><div class="sw-thumb"></div></div>
+    </label>
   </div>
   <!-- Profile widget -->
   <div class="sb-profile" onclick="openProfile()" title="My profile & team access">
@@ -1773,9 +1739,14 @@ function buildNavState() {
     const el = document.getElementById('ni-'+i);
     if(!el) return;
     el.classList.remove('active','done','locked');
-    if(i === currentStep) el.classList.add('active');
-    else if(unlockedSteps.has(i) && i < currentStep) el.classList.add('done');
-    else if(!unlockedSteps.has(i)) el.classList.add('locked');
+    if(i === currentStep) {
+      el.classList.add('active');
+    } else if(i < currentStep) {
+      el.classList.add('done');
+    } else if(!unlockedSteps.has(i)) {
+      el.classList.add('locked');
+    }
+    // unlocked future steps (test mode): no class = clickable, no dimming
   });
 }
 
@@ -2357,7 +2328,8 @@ function markStepSaved(stepIdx){
 
 function updateSidebarLU(date){
   var el = document.getElementById('sb-lu-text');
-  if(el) el.textContent = 'Saved ' + formatRelTime(date);
+  if(!el) return;
+  el.textContent = 'Saved ' + formatRelTime(date);
 }
 
 // Refresh relative times every 30s
@@ -2376,10 +2348,10 @@ setInterval(function(){
 var _origValidateAndNext = validateAndNext;
 window.validateAndNext = function(stepIdx){
   var stepNames = ['General information','Business activity','Banking information','Beneficial owner info','Individuals info'];
-  // Run original — if it advances, record
   var before = currentStep;
   _origValidateAndNext(stepIdx);
-  if(currentStep !== before || TEST_MODE){
+  var testOn = (typeof TEST_MODE !== 'undefined' && TEST_MODE);
+  if(currentStep !== before || testOn){
     markStepSaved(stepIdx);
     recordActivity('step', 'Completed: ' + stepNames[stepIdx]);
     if(stepIdx === 4){
@@ -2419,11 +2391,11 @@ document.addEventListener('input', function(e){
 // Also record invites in activity log
 var _origSendInvite = sendInvite;
 window.sendInvite = function(){
-  var emailBefore = document.getElementById('invite-email').value.trim();
-  _origSendInvite();
-  // Check if member was added (list grew)
   var emailEl = document.getElementById('invite-email');
-  if(emailEl && emailEl.value === '' && emailEl.className.indexOf('err') === -1){
+  var emailBefore = emailEl ? emailEl.value.trim() : '';
+  _origSendInvite();
+  var emailElAfter = document.getElementById('invite-email');
+  if(emailBefore && emailElAfter && emailElAfter.value === '' && emailElAfter.className.indexOf('err') === -1){
     recordActivity('invite', 'Invited ' + emailBefore + ' to collaborate');
   }
 };
@@ -2732,48 +2704,30 @@ function showToast(msg){
 // ══════════════════════════════════════════════
 let TEST_MODE = false;
 
-function openTestBar(){
-  document.getElementById('test-bar').style.display = 'flex';
-  document.getElementById('test-entry-btn').style.display = 'none';
-}
-function closeTestBar(){
-  document.getElementById('test-bar').style.display = 'none';
-  document.getElementById('test-entry-btn').style.display = 'flex';
-}
 
 function toggleTestMode(){
   const chk = document.getElementById('test-mode-chk');
-  // sync checkbox if called from label click
-  if(document.activeElement !== chk) chk.checked = !chk.checked;
+  if(!chk) return;
   TEST_MODE = chk.checked;
-  const status = document.getElementById('test-toggle-status');
+  const row = document.getElementById('test-mode-row');
   const banner = document.getElementById('test-mode-banner');
-  const entryBtn = document.getElementById('test-entry-btn');
-  const bar = document.getElementById('test-bar');
-
   if(TEST_MODE){
-    status.textContent = 'ON';
-    status.style.color = '#f59e0b';
-    banner.classList.add('on');
+    if(row) row.classList.add('on');
+    if(banner) banner.classList.add('on');
     document.body.classList.add('test-mode');
-    bar.style.borderTopColor = '#f59e0b';
-    // Unlock all steps so user can jump freely
     unlockedSteps = new Set([0,1,2,3,4]);
     buildNavState();
-    syncMobDrawer && syncMobDrawer();
+    if(typeof syncMobDrawer==='function') syncMobDrawer();
   } else {
-    status.textContent = 'OFF';
-    status.style.color = '#6b7280';
-    banner.classList.remove('on');
+    if(row) row.classList.remove('on');
+    if(banner) banner.classList.remove('on');
     document.body.classList.remove('test-mode');
-    // Re-lock steps beyond current
-    unlockedSteps = new Set(Array.from({length: currentStep+1}, (_,i) => i));
+    unlockedSteps = new Set(Array.from({length: currentStep+1}, function(_,i){return i;}));
     buildNavState();
-    syncMobDrawer && syncMobDrawer();
-    // Clear all validation errors
-    document.querySelectorAll('.inp.err').forEach(el => el.classList.remove('err','ok'));
-    document.querySelectorAll('.err-msg.show').forEach(el => el.classList.remove('show'));
-    document.querySelectorAll('.val-sum.show').forEach(el => el.classList.remove('show'));
+    if(typeof syncMobDrawer==='function') syncMobDrawer();
+    document.querySelectorAll('.inp.err').forEach(function(el){el.classList.remove('err','ok');});
+    document.querySelectorAll('.err-msg.show').forEach(function(el){el.classList.remove('show');});
+    document.querySelectorAll('.val-sum.show').forEach(function(el){el.classList.remove('show');});
   }
 }
 
@@ -3009,14 +2963,6 @@ function startOver(){
 <!-- ══ TEST MODE BANNER ══ -->
 <div class="test-mode-banner" id="test-mode-banner">⚡ TEST MODE — Validation disabled. For demo purposes only.</div>
 
-<!-- ══ TEST MODE FLOATING ENTRY ══ -->
-<button class="test-entry" id="test-entry-btn" onclick="openTestBar()" title="Toggle test mode">
-  <span class="te-dot"></span>Test mode
-</button>
-
-<!-- ══ TEST MODE BAR ══ -->
-<div class="test-bar" id="test-bar" style="display:none">
-  <div class="test-bar-dot"></div>
   <span class="test-bar-label">Test Mode</span>
   <span class="test-bar-desc">Validation is bypassed — navigate freely between steps</span>
   <div class="test-toggle-wrap">
